@@ -1,58 +1,215 @@
 <odoo>
-  <data>
-    <!-- explicit list view definition -->
-    <!--
-    <record model="ir.ui.view" id="pdam_tangerang.list">
-      <field name="name">pdam_tangerang list</field>
-      <field name="model">pdam_tangerang.pdam_tangerang</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
-      </field>
-    </record>
-    -->
+    <data>
+        <!-- explicit list view definition -->
+        <!--
+        <record model="ir.ui.view" id="pdam_tangerang.list">
+          <field name="name">pdam_tangerang list</field>
+          <field name="model">pdam_tangerang.pdam_tangerang</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="name"/>
+              <field name="value"/>
+              <field name="value2"/>
+            </tree>
+          </field>
+        </record>
+        -->
+        <record model="ir.ui.view" id="pdam_tangerang.spko">
+            <field name="name">Surat Perintah Kerja Opname SPKO</field>
+            <field name="model">pdam_tangerang.spko</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="wilayah_id"/>
+                    <field name="employee_id"/>
+                    <field name="customer_id"/>
+                    <field name="registration_number"/>
+                    <field name="spko_detail"/>
+                    <field name="installation_address"/>
+                </tree>
+            </field>
+        </record>
 
-    <!-- actions opening views on models -->
+        <record model="ir.ui.view" id="spko_form_view">
+            <field name="name">spko.form</field>
+            <field name="model">pdam_tangerang.spko</field>
+            <field name="arch" type="xml">
+                <form string="SPKO Form">
+                    <sheet>
+                        <group>
+                            <field name="wilayah_id"/>
+                            <field name="employee_id"/>
+                            <field name="customer_id"/>
+                            <field name="registration_number"/>
+                            <field name="spko_detail"/>
+                            <field name="installation_address"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-    <record model="ir.actions.act_window" id="pdam_tangerang.action_window">
-      <field name="name">Pelanggan</field>
-      <field name="res_model">res.partner</field>
-      <field name="view_mode">tree,form,kanban</field>
-    </record>
+        <record model="ir.ui.view" id="pdam_tangerang.wilayah">
+            <field name="name">Wilayah SPKO</field>
+            <field name="model">pdam_tangerang.wilayah</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="wilayah_form_view">
+            <field name="name">wilayah.form</field>
+            <field name="model">pdam_tangerang.wilayah</field>
+            <field name="arch" type="xml">
+                <form string="Wilayah Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
 
-    <!-- server action to the one above -->
-    <!--
-    <record model="ir.actions.server" id="pdam_tangerang.action_server">
-      <field name="name">pdam_tangerang server</field>
-      <field name="model_id" ref="model_pdam_tangerang_pdam_tangerang"/>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": self._name,
-        }
-      </field>
-    </record>
-    -->
+        <!-- actions opening views on models -->
 
-    <!-- Top menu item -->
-    <menuitem name="PDAM Tanggerang" id="pdam_tangerang.menu_root"/>
 
-    <!-- menu categories -->
+        <record model="ir.actions.act_window" id="pdam_tangerang.action_window">
+            <field name="name">Pelanggan</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+        <record model="ir.actions.act_window" id="pdam_tangerang.action_window_spko">
+            <field name="name">Surat Perinta Kerja Opname(SPKO)</field>
+            <field name="res_model">pdam_tangerang.spko</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+        <record model="ir.actions.act_window" id="pdam_tangerang.action_window_wilayah">
+            <field name="name">Wilayah SPKO</field>
+            <field name="res_model">pdam_tangerang.wilayah</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
 
-    <menuitem name="Pendaftaran Pelanggan" id="pdam_tangerang.menu_1" parent="pdam_tangerang.menu_root"/>
-    <menuitem name="Meter Reading Desktop" id="pdam_tangerang.menu_2" parent="pdam_tangerang.menu_root"/>
+        <!--UNTUK KANBAN VIEW-->
+        <record model="ir.ui.view" id="view_sale_order_kanban">
+            <field name="name">spko.kanban</field>
+            <field name="model">pdam_tangerang.spko</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_salon_kanban">
+                    <field name="wilayah_id"/>
+                    <field name="employee_id"/>
+                    <field name="customer_id"/>
+                    <field name="registration_number"/>
+                    <field name="spko_detail"/>
+                    <field name="installation_address"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        Nama Pegawai
+                                    </div>
+                                    <div class="col-md-6">
+                                        <field name="employee_id"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h3>No Pendaftaran :</h3>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3>
+                                            <field name="registration_number"/>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
 
-    <!-- actions -->
+                                        Nama Pelanggan
 
-    <menuitem name="Daftar Pelanggan" id="pdam_tangerang.menu_1_list" parent="pdam_tangerang.menu_1"
-              action="pdam_tangerang.action_window"/>
-    <!--<menuitem name="Server to list" id="pdam_tangerang" parent="pdam_tangerang.menu_2"-->
-              <!--action="pdam_tangerang.action_server"/>-->
+                                    </div>
+                                    <div class="col-md-6">
 
-  </data>
+                                        <field name="customer_id"/>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!--UNTUK MENAMBAHKAN CUSTOM FIELD DI MODEL RES.PARTNER (CUSTOMER) ODOO-->
+        <record id="form_customer_pdam" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                    <field name="registration_number"/>
+                    <field name="ktp_no"/>
+                    <field name="npwp_no"/>
+                    <field name="spl_date"/>
+                    <field name="kk_image" widget="image"/>
+                    <field name="kk_image" widget="image"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="seq_ref_customer_number_registration" model="ir.sequence">
+            <field name="name">ref_customer_number_registration</field>
+            <field name="code">res.partner</field>
+            <field name="padding">6</field>
+        </record>
+
+
+        <!-- server action to the one above -->
+        <!--
+        <record model="ir.actions.server" id="pdam_tangerang.action_server">
+          <field name="name">pdam_tangerang server</field>
+          <field name="model_id" ref="model_pdam_tangerang_pdam_tangerang"/>
+          <field name="code">
+            action = {
+              "type": "ir.actions.act_window",
+              "view_mode": "tree,form",
+              "res_model": self._name,
+            }
+          </field>
+        </record>
+        -->
+
+
+        <!--UNTUK MENU DISIMPAN DISINI SUPAYA RAPIH!!!!!!-->
+
+        <!-- Top menu item -->
+        <menuitem name="PDAM Tanggerang" id="pdam_tangerang.menu_root"/>
+
+        <!-- menu categories -->
+
+        <menuitem name="Pendaftaran Pelanggan" id="pdam_tangerang.menu_1" parent="pdam_tangerang.menu_root"/>
+        <menuitem name="Meter Reading Desktop" id="pdam_tangerang.menu_2" parent="pdam_tangerang.menu_root"/>
+        <menuitem name="Konfigurasi" id="pdam_tangerang.configuration_menu" parent="pdam_tangerang.menu_root"/>
+
+        <!-- actions -->
+
+        <menuitem name="Daftar Pelanggan" id="pdam_tangerang.menu_1_list" parent="pdam_tangerang.menu_1"
+                  action="pdam_tangerang.action_window"/>
+        <menuitem name="SPKO" id="pdam_tangerang.menu_spko_list" parent="pdam_tangerang.menu_1"
+                  action="pdam_tangerang.action_window_spko"/>
+        <menuitem name="Wilayah" id="pdam_tangerang.menu_wilayah_list" parent="pdam_tangerang.configuration_menu"
+                  action="pdam_tangerang.action_window_wilayah"/>
+        <!--<menuitem name="Server to list" id="pdam_tangerang" parent="pdam_tangerang.menu_2"-->
+        <!--action="pdam_tangerang.action_server"/>-->
+
+    </data>
 </odoo>

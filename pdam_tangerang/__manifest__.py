@@ -23,7 +23,7 @@
     'application' : True,
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','account','hr_expense','account_accountant','purchase'],
+    'depends': ['base','sale','account','hr_expense','hr','hr_contract','account_accountant','purchase'],
 
     # always loaded
     'data': [
