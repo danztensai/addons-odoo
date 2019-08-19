@@ -1,0 +1,72 @@
+<odoo>
+  <data>
+
+    <record id="account.view_account_form_cashflow" model="ir.ui.view">
+      <field name="name">account.account.form.cashflow</field>
+      <field name="model">account.account</field>
+      <field name="inherit_id" ref="account.view_account_form"/>
+      <field name="arch" type="xml">
+          <field name="user_type_id" position="after">
+            <field name="cashflow_type"/>
+          </field>
+      </field>
+
+    </record>
+
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="accounting_cashflow.list">
+      <field name="name">accounting_cashflow list</field>
+      <field name="model">accounting_cashflow.accounting_cashflow</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="accounting_cashflow.action_window">
+      <field name="name">accounting_cashflow window</field>
+      <field name="res_model">accounting_cashflow.accounting_cashflow</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="accounting_cashflow.action_server">
+      <field name="name">accounting_cashflow server</field>
+      <field name="model_id" ref="model_accounting_cashflow_accounting_cashflow"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="accounting_cashflow" id="accounting_cashflow.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="accounting_cashflow.menu_1" parent="accounting_cashflow.menu_root"/>
+    <menuitem name="Menu 2" id="accounting_cashflow.menu_2" parent="accounting_cashflow.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="accounting_cashflow.menu_1_list" parent="accounting_cashflow.menu_1"
+              action="accounting_cashflow.action_window"/>
+    <menuitem name="Server to list" id="accounting_cashflow" parent="accounting_cashflow.menu_2"
+              action="accounting_cashflow.action_server"/>
+    -->
+  </data>
+</odoo>

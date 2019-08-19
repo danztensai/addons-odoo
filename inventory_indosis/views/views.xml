@@ -1,0 +1,121 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="inventory_indosis.list">
+      <field name="name">inventoryIndosis list</field>
+      <field name="model">inventory_indosis.barang</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="barcode"/>
+          <field name="name"/>
+          <field name="qty"/>
+          <field name="description"/>
+          <field name="group_id"/>
+          <field name="image" widget="image"/>
+        </tree>
+      </field>
+    </record>
+
+      <record model="ir.ui.view" id="barang_search_view">
+            <field name="name">barang.search</field>
+            <field name="model">inventory_indosis.barang</field>
+            <field name="arch" type="xml">
+                <search>
+                     <field name="barcode" string="barcode" filter_domain="[('barcode','ilike',self)]"/>
+                     <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="barang_form_view">
+            <field name="name">barang.form</field>
+            <field name="model">inventory_indosis.barang</field>
+            <field name="arch" type="xml">
+                <form string="Barang Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="barcode"/>
+                            <field name="qty"/>
+                            <field name="description"/>
+                            <field name="group_id"/>
+                            <field name="tipe_barang"/>
+                            <field name="image" widget="image"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="inventory_indosis.action_window">
+      <field name="name">Barang</field>
+      <field name="res_model">inventory_indosis.barang</field>
+      <field name="view_mode">tree,form</field>
+
+    </record>
+
+           <!-- Group form view -->
+        <record model="ir.ui.view" id="group_form_view">
+            <field name="name">group.form</field>
+            <field name="model">inventory_indosis.group</field>
+            <field name="arch" type="xml">
+                <form string="Session Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+     <record model="ir.actions.act_window" id="group_list_action">
+            <field name="name">Group</field>
+            <field name="res_model">inventory_indosis.group</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="inventory_indosis.action_server">
+      <field name="name">inventoryIndosis server</field>
+      <field name="model_id" ref="model_inventory_indosis_inventory_indosis"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+
+    <menuitem name="Inventory Indosis" id="inventory_indosis.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Inventory" id="inventory_indosis.menu_1" parent="inventory_indosis.menu_root"/>
+    <menuitem id="group_menu" name="Group"
+                  parent="inventory_indosis.menu_root"
+                  action="group_list_action"/>
+    <!--<menuitem name="Menu 2" id="inventory_indosis.menu_2" parent="inventory_indosis.menu_root"/>-->
+
+    <!-- actions -->
+
+    <menuitem name="List" id="inventory_indosis.menu_1_list" parent="inventory_indosis.menu_1"
+              action="inventory_indosis.action_window"/>
+    <!--
+    <menuitem name="Server to list" id="inventory_indosis" parent="inventory_indosis.menu_2"
+              action="inventory_indosis.action_server"/>
+    -->
+  </data>
+</odoo>

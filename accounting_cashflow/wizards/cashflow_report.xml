@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+# View Wizard untuk generate rekap presensi
+# author @CakJuice <hd.brandoz@gmail.com>
+-->
+
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="view_cashflow_report_wizard">
+			<field name="name">cashflow.report.wizard</field>
+			<field name="model">cashflow.report.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Cashflow Report">
+
+					<group>
+                        <group>
+                            <field name="init_bal"/>
+                        </group>
+						<group>
+							<field name="date_start"/>
+						</group>
+						<group>
+							<field name="date_end"/>
+						</group>
+					</group>
+					<footer>
+						<button name="get_report" string="Print Report" type="object" class="btn-primary" attrs="{'invisible': ['|', ('date_start', '=', False), ('date_end', '=', False)]}"/>
+						<button string="Batal" class="btn-default" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<act_window
+			id="action_cashflow_report_wizard"
+			name="Cashflow Report"
+			res_model="cashflow.report.wizard"
+			view_mode="form"
+			target="new"/>
+
+		<menuitem action="action_cashflow_report_wizard" id="menu_cashflow_report_wizard" parent="account.menu_finance_reports"/>
+	</data>
+</odoo>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+# Report untuk generate rekap presensi
+# author @CakJuice <hd.brandoz@gmail.com>
+-->
+
+<odoo>
+	<data>
+		<report id="acounting_cashflow_report"
+                model="cashflow.report.wizard"
+			string="Cashflow Report"
+			report_type="qweb-pdf"
+			name="accounting_cashflow.cashflow_report_view"
+			file="accounting_cashflow.cashflow_report_view"
+			menu="False"/>
+
+		<record model="report.paperformat" id="paperformat_accounting_cashflow_report">
+			<field name="name">paperformat.accounting.cashflow.report</field>
+			<field name="default" eval="True" />
+			<field name="format">A4</field>
+			<field name="page_width">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">30</field>
+			<field name="margin_right">5</field>
+			<field name="margin_bottom">10</field>
+			<field name="margin_left">5</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">20</field>
+			<field name="dpi">90</field>
+		</record>
+
+		<!-- record id dibawah ini harus sama dengan report id -->
+		<record id="accounting_cashflow.acounting_cashflow_report" model="ir.actions.report.xml">
+			<!-- field ref harus sama dengan id record paperformat -->
+			<field name="paperformat_id" ref="accounting_cashflow.paperformat_accounting_cashflow_report"/>
+		</record>
+
+		<!-- template id dibawah ini harus sama dengan report name -->
+		<template id="cashflow_report_view">
+			<div class="page">
+				<h1>Cashflow</h1>
+			<div class="row mt32 mb32">
+				<div class="col-xs-4">
+                            <strong>Initial balance</strong>
+                            <p>
+                                <span t-if="init_bal" t-esc="init_bal" />
+
+                            </p>
+                        </div>
+					<div class="col-xs-4">
+                            <p>
+                                <t t-if="date_start"><strong>Date from :</strong> <span t-esc="date_start"/><br/></t>
+                                <t t-if="date_end"><strong>Date to :</strong> <span t-esc="date_end"/></t>
+                            </p>
+                        </div>
+			</div>
+				<table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="text-right">Balance</th>
+                            </tr>
+                        </thead>
+				<tbody>
+					<!--CASHFLOW TYPE OPERATION-->
+					<tr>
+						<td>
+							<span style="color: white;">..</span>
+							<span style="font-weight: bold;">Operations</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span style="color: white;">....</span>
+							<span style="font-weight: bold;">Cash Receipt From - Operations</span>
+						</td>
+						<td class="text-right"><span t-esc="income_operation" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+
+					</tr>
+
+					<tr t-foreach="operations" t-as="op">
+						<td><span style="color: white;">........</span><span t-esc="op['name']"></span></td>
+						<td class="text-right"><span t-esc="op['income']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+
+					<tr>
+						<td>
+							<span style="color: white;">....</span>
+							<span style="font-weight: bold;">Cash Paid To - Operations</span>
+						</td>
+						<td class="text-right"><span t-esc="expense_operation" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+					<tr t-foreach="operations" t-as="op">
+						<td><span style="color: white;">........</span><span t-esc="op['name']"></span></td>
+						<td class="text-right"><span t-esc="op['expense']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+					<tr>
+						<td>
+							<span style="color: white;">..</span>
+							<span style="font-weight: bold;">Net Operation</span>
+						</td>
+						<td class="text-right"><span t-esc="net_operation" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+					<!--END CASHFLOW TYPE OPERATION-->
+					<!--Cashflow Type Investing -->
+					<tr>
+						<td>
+							<span style="color: white;">..</span>
+							<span style="font-weight: bold;">Investing</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span style="color: white;">....</span>
+							<span style="font-weight: bold;">Cash Receipt From - Investing</span>
+						</td>
+						<td class="text-right"><span t-esc="income_investing" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+
+					</tr>
+
+					<tr t-foreach="investing" t-as="inv">
+						<td><span style="color: white;">........</span><span t-esc="inv['name']"></span></td>
+						<td class="text-right"><span t-esc="inv['income']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+
+					<tr>
+						<td>
+							<span style="color: white;">....</span>
+							<span style="font-weight: bold;">Cash Paid To - Investing</span>
+						</td>
+						<td class="text-right"><span t-esc="expense_investing" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+					<tr t-foreach="investing" t-as="inv">
+						<td><span style="color: white;">........</span><span t-esc="inv['name']"></span></td>
+						<td class="text-right"><span t-esc="inv['expense']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+					<tr>
+						<td>
+							<span style="color: white;">..</span>
+							<span style="font-weight: bold;">Net Investing</span>
+						</td>
+						<td class="text-right"><span t-esc="net_investing" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+					<!--END Cashflow Type Investing-->
+					<!-- Cashflow Type Financing-->
+					<tr>
+						<td>
+							<span style="color: white;">..</span>
+							<span style="font-weight: bold;">Financing</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span style="color: white;">....</span>
+							<span style="font-weight: bold;">Cash Receipt From - Financing</span>
+						</td>
+						<td class="text-right"><span t-esc="income_financing" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+
+					</tr>
+
+					<tr t-foreach="financing" t-as="fin">
+						<td><span style="color: white;">........</span><span t-esc="fin['name']"></span></td>
+						<td class="text-right"><span t-esc="fin['income']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+
+					<tr>
+						<td>
+							<span style="color: white;">....</span>
+							<span style="font-weight: bold;">Cash Paid To - Investing</span>
+						</td>
+						<td class="text-right"><span t-esc="expense_financing" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+					<tr t-foreach="financing" t-as="fin">
+						<td><span style="color: white;">........</span><span t-esc="fin['name']"></span></td>
+						<td class="text-right"><span t-esc="fin['expense']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+					<tr>
+						<td>
+							<span style="color: white;">..</span>
+							<span style="font-weight: bold;">Net Financing</span>
+						</td>
+						<td class="text-right"><span t-esc="net_investing" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"></span></td>
+					</tr>
+
+					<!--END Cashflow Type Financing-->
+					<tr>
+						<td>
+							<span style="color: white;">..</span>
+							<span style="font-weight: bold;">Net Increase In Cash</span>
+						</td>
+						<td class="text-right"><span t-esc="net_increase_incash" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}" /> </td>
+					</tr>
+					<tr>
+						<td>
+							<span style="color: white;">..</span>
+							<span style="font-weight: bold;">Cash at End Of Year</span>
+						</td>
+						<td class="text-right"><span t-esc="cash_end_year" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/> </td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+
+
+
+		</template>
+	</data>
+</odoo>
