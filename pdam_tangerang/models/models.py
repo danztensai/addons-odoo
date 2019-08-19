@@ -17,6 +17,11 @@ from odoo import models, fields, api
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
+    # customer_status = fields.Selection(
+    #     [('approved', 'Approved'),
+    #      ('pending', 'Pending'),
+    #      ('denied', 'Tolak')],
+    #     'Status Approval', default='pending')
     ktp_no = fields.Char(
         string="No KTP",  # Optional label of the field
         help = 'No KTP Pelanggan',  # Help tooltip text
@@ -34,6 +39,7 @@ class ResPartner(models.Model):
     ktp_image = fields.Binary(string="Upload Foto KTP")
     registration_number = fields.Char(string="No Pendaftaran")
     spl_date = fields.Date(string="Tanggal SPL", required=True,default=fields.Date.today)
+
 
     @api.model
     def create(self, values):
@@ -62,3 +68,20 @@ class Spko(models.Model):
     registration_number = fields.Char(string='No Pendaftaran',related='customer_id.registration_number')
     installation_address = fields.Char(string="Alamat Pemasangan",related='customer_id.street')
     spko_detail = fields.Char(String="Keterangan")
+
+class Survey(models.Model):
+    _name = 'pdam_tangerang.survey'
+
+    wilayah_id = fields.Many2one('pdam_tangerang.wilayah',ondelete='set null', string="Wilayah",index=True)
+    employee_id = fields.Many2one('hr.employee', ondelete='set null', string="Nama Petugas", index=True)
+    survey_date = fields.Date(string="Tanggal Survey",required=True,default=fields.Date.today)
+    customer_id = fields.Many2one('res.partner',ondelete='set null',string="Nama Pelanggan",index=True)
+    registration_number = fields.Char(string='No Pendaftaran', related='customer_id.registration_number')
+    pipe_length = fields.Float(string="Panjang Pipa")
+    pipe_diameter = fields.Float(string="Diameter Pipa")
+    resident_count = fields.Integer(string="Jumlah Penghuni")
+    lb_survey = fields.Char(string="LB Survey")
+    fee_group = fields.Char(string="Gol. Tarif")
+    status = fields.Selection([('survey','Survey'),('verified','Verifikasi')],'Status Survey',default='survey')
+    house_image = fields.Binary(string="Foto Rumah")
+

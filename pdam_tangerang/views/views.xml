@@ -48,6 +48,60 @@
             </field>
         </record>
 
+        <!--View Upload Survey-->
+
+        <record model="ir.ui.view" id="pdam_tangerang.survey">
+            <field name="name">Survey</field>
+            <field name="model">pdam_tangerang.survey</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="wilayah_id"/>
+                    <field name="employee_id"/>
+                    <field name="customer_id"/>
+                    <field name="registration_number"/>
+                    <field name="resident_count"/>
+                    <field name="pipe_length"/>
+                    <field name="pipe_diameter"/>
+                    <field name="lb_survey"/>
+                    <field name="status"/>
+                    <field name="fee_group"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="spko_form_view">
+            <field name="name">survey.form</field>
+            <field name="model">pdam_tangerang.survey</field>
+            <field name="arch" type="xml">
+                <form string="Survey Form">
+                    <sheet>
+                        <group>
+                            <field name="wilayah_id"/>
+                            <field name="employee_id"/>
+                            <field name="customer_id"/>
+                            <field name="registration_number"/>
+                            <field name="resident_count"/>
+                            <field name="house_image" widget="image"/>
+                        </group>
+                        <group>
+                            <field name="pipe_length"/>
+                            <field name="pipe_diameter"/>
+                            <field name="lb_survey"/>
+                            <field name="fee_group"/>
+                            <field name="status"/>
+
+                        </group>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <!--View Wilayah SPKO-->
+
         <record model="ir.ui.view" id="pdam_tangerang.wilayah">
             <field name="name">Wilayah SPKO</field>
             <field name="model">pdam_tangerang.wilayah</field>
@@ -92,6 +146,11 @@
         <record model="ir.actions.act_window" id="pdam_tangerang.action_window_wilayah">
             <field name="name">Wilayah SPKO</field>
             <field name="res_model">pdam_tangerang.wilayah</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+         <record model="ir.actions.act_window" id="pdam_tangerang.action_window_survey">
+            <field name="name">Survey Pelanggan</field>
+            <field name="res_model">pdam_tangerang.survey</field>
             <field name="view_mode">tree,form,kanban</field>
         </record>
 
@@ -206,6 +265,8 @@
                   action="pdam_tangerang.action_window"/>
         <menuitem name="SPKO" id="pdam_tangerang.menu_spko_list" parent="pdam_tangerang.menu_1"
                   action="pdam_tangerang.action_window_spko"/>
+        <menuitem name="Survey" id="pdam_tangerang.menu_survey_list" parent="pdam_tangerang.menu_1"
+                  action="pdam_tangerang.action_window_survey"/>
         <menuitem name="Wilayah" id="pdam_tangerang.menu_wilayah_list" parent="pdam_tangerang.configuration_menu"
                   action="pdam_tangerang.action_window_wilayah"/>
         <!--<menuitem name="Server to list" id="pdam_tangerang" parent="pdam_tangerang.menu_2"-->
