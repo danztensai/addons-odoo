@@ -1,26 +1,29 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "pdam_tangerang",
+    'name': "PDAM Tanggerang",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Custom Module Untuk PDAM Tanggerang""",
 
     'description': """
-        Long description of module's purpose
+        Untuk kebutuhan PDAM Tanggerang
+        
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Indosis Integrasi",
+    'website': "https://sisintegrasi.co.id/",
+    'images': ['static/src/img/icon.png'],
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/10.0/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Application',
     'version': '0.1',
 
+    'application' : True,
+
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','sale','account','hr_expense','account_accountant','purchase'],
 
     # always loaded
     'data': [

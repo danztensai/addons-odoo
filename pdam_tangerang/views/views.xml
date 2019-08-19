@@ -16,13 +16,13 @@
     -->
 
     <!-- actions opening views on models -->
-    <!--
+
     <record model="ir.actions.act_window" id="pdam_tangerang.action_window">
-      <field name="name">pdam_tangerang window</field>
-      <field name="res_model">pdam_tangerang.pdam_tangerang</field>
-      <field name="view_mode">tree,form</field>
+      <field name="name">Pelanggan</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
-    -->
+
 
     <!-- server action to the one above -->
     <!--
@@ -40,20 +40,19 @@
     -->
 
     <!-- Top menu item -->
-    <!--
-    <menuitem name="pdam_tangerang" id="pdam_tangerang.menu_root"/>
-    -->
+    <menuitem name="PDAM Tanggerang" id="pdam_tangerang.menu_root"/>
+
     <!-- menu categories -->
-    <!--
-    <menuitem name="Menu 1" id="pdam_tangerang.menu_1" parent="pdam_tangerang.menu_root"/>
-    <menuitem name="Menu 2" id="pdam_tangerang.menu_2" parent="pdam_tangerang.menu_root"/>
-    -->
+
+    <menuitem name="Pendaftaran Pelanggan" id="pdam_tangerang.menu_1" parent="pdam_tangerang.menu_root"/>
+    <menuitem name="Meter Reading Desktop" id="pdam_tangerang.menu_2" parent="pdam_tangerang.menu_root"/>
+
     <!-- actions -->
-    <!--
-    <menuitem name="List" id="pdam_tangerang.menu_1_list" parent="pdam_tangerang.menu_1"
+
+    <menuitem name="Daftar Pelanggan" id="pdam_tangerang.menu_1_list" parent="pdam_tangerang.menu_1"
               action="pdam_tangerang.action_window"/>
-    <menuitem name="Server to list" id="pdam_tangerang" parent="pdam_tangerang.menu_2"
-              action="pdam_tangerang.action_server"/>
-    -->
+    <!--<menuitem name="Server to list" id="pdam_tangerang" parent="pdam_tangerang.menu_2"-->
+              <!--action="pdam_tangerang.action_server"/>-->
+
   </data>
 </odoo>
