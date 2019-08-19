@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="pdam_tangerang.list">
+      <field name="name">pdam_tangerang list</field>
+      <field name="model">pdam_tangerang.pdam_tangerang</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="pdam_tangerang.action_window">
+      <field name="name">pdam_tangerang window</field>
+      <field name="res_model">pdam_tangerang.pdam_tangerang</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="pdam_tangerang.action_server">
+      <field name="name">pdam_tangerang server</field>
+      <field name="model_id" ref="model_pdam_tangerang_pdam_tangerang"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="pdam_tangerang" id="pdam_tangerang.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="pdam_tangerang.menu_1" parent="pdam_tangerang.menu_root"/>
+    <menuitem name="Menu 2" id="pdam_tangerang.menu_2" parent="pdam_tangerang.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="pdam_tangerang.menu_1_list" parent="pdam_tangerang.menu_1"
+              action="pdam_tangerang.action_window"/>
+    <menuitem name="Server to list" id="pdam_tangerang" parent="pdam_tangerang.menu_2"
+              action="pdam_tangerang.action_server"/>
+    -->
+  </data>
+</odoo>
