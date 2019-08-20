@@ -63,17 +63,28 @@
                     <field name="pipe_length"/>
                     <field name="pipe_diameter"/>
                     <field name="lb_survey"/>
-                    <field name="status"/>
+                    <field name="state"/>
                     <field name="fee_group"/>
                 </tree>
             </field>
         </record>
 
-        <record model="ir.ui.view" id="spko_form_view">
+        <record model="ir.ui.view" id="survey_form_view">
             <field name="name">survey.form</field>
             <field name="model">pdam_tangerang.survey</field>
             <field name="arch" type="xml">
                 <form string="Survey Form">
+                    <header>
+
+                        <button name="action_done" class="oe_highlight" type="object" string="Verifikasi" states="survey"
+                        help="Pastikan Semua data benar Sebelum Melakukan Verifikasi"/>
+                        <button name="action_survey" type="object" string="Survey" states="verified"
+                        help="Untuk Mengembalikan Status ke Survey"/>
+                        <button name="action_denied" type="object" string="Tolak" states="verified,survey"
+                        help="Untuk Menolak Survey"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+
+                    </header>
                     <sheet>
                         <group>
                             <field name="wilayah_id"/>
@@ -88,7 +99,7 @@
                             <field name="pipe_diameter"/>
                             <field name="lb_survey"/>
                             <field name="fee_group"/>
-                            <field name="status"/>
+                            <field name="state"/>
 
                         </group>
 
@@ -221,6 +232,20 @@
                     <field name="kk_image" widget="image"/>
                     <field name="kk_image" widget="image"/>
                 </field>
+
+                <xpath expr="//form[1]//sheet[1]" position="before">
+                     <header>
+		                <button string="Validating" type="object" name="concept_progressbar" attrs="{'invisible': [('state', '=', 'concept')]}"/>
+
+                        <button string="Survey" type="object" name="started_progressbar" class="oe_highlight" attrs="{'invisible': [('state','!=','concept')]}"/>
+                        <button string="Tolak" type="object" name="progress_progressbar" attrs="{'invisible': [('state','=','progress')]}"/>
+                        <button string="Approve" type="object" name="done_progressbar" attrs="{'invisible': [('state','=','finished')]}"/>
+
+                            <field name="state" widget="statusbar"/>
+		            </header>
+		        </xpath>
+
+
 
             </field>
         </record>

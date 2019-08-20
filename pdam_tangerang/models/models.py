@@ -22,6 +22,8 @@ class ResPartner(models.Model):
     #      ('pending', 'Pending'),
     #      ('denied', 'Tolak')],
     #     'Status Approval', default='pending')
+    state = fields.Selection(
+        [('validating', 'Validasi'), ('survey', 'Survey'), ('denied', 'Tolak'), ('finished', 'Terima')],default='validating')
     ktp_no = fields.Char(
         string="No KTP",  # Optional label of the field
         help = 'No KTP Pelanggan',  # Help tooltip text
@@ -39,6 +41,43 @@ class ResPartner(models.Model):
     ktp_image = fields.Binary(string="Upload Foto KTP")
     registration_number = fields.Char(string="No Pendaftaran")
     spl_date = fields.Date(string="Tanggal SPL", required=True,default=fields.Date.today)
+
+
+
+    @api.multi
+    def concept_progressbar(self):
+        self.ensure_one()
+
+        self.write({
+            'state': 'validating',
+        })
+
+    # This function is triggered when the user clicks on the button 'Set to started'
+    @api.multi
+    def started_progressbar(self):
+        self.ensure_one()
+
+        self.write({
+            'state': 'survey'
+        })
+
+    # This function is triggered when the user clicks on the button 'In progress'
+    @api.multi
+    def progress_progressbar(self):
+        self.ensure_one()
+
+        self.write({
+            'state': 'denied'
+        })
+
+    # This function is triggered when the user clicks on the button 'Done'
+    @api.multi
+    def done_progressbar(self):
+        self.ensure_one()
+
+        self.write({
+            'state': 'finished',
+        })
 
 
     @api.model
@@ -72,6 +111,8 @@ class Spko(models.Model):
 class Survey(models.Model):
     _name = 'pdam_tangerang.survey'
 
+    rec_name = 'registration_number'
+
     wilayah_id = fields.Many2one('pdam_tangerang.wilayah',ondelete='set null', string="Wilayah",index=True)
     employee_id = fields.Many2one('hr.employee', ondelete='set null', string="Nama Petugas", index=True)
     survey_date = fields.Date(string="Tanggal Survey",required=True,default=fields.Date.today)
@@ -82,6 +123,22 @@ class Survey(models.Model):
     resident_count = fields.Integer(string="Jumlah Penghuni")
     lb_survey = fields.Char(string="LB Survey")
     fee_group = fields.Char(string="Gol. Tarif")
-    status = fields.Selection([('survey','Survey'),('verified','Verifikasi')],'Status Survey',default='survey')
+    state = fields.Selection([('survey','Survey'),('verified','Verifikasi'),('denied','Tolak')],'Status Survey',default='survey')
     house_image = fields.Binary(string="Foto Rumah")
+
+    @api.multi
+    def action_done(self):
+        self.ensure_one()
+        return self.write({'state': 'verified'})
+
+    @api.multi
+    def action_survey(self):
+        self.ensure_one()
+        return self.write({'state': 'survey'})
+
+    @api.multi
+    def action_denied(self):
+        self.ensure_one()
+        return self.write({'state': 'denied'})
+
 
