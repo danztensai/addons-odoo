@@ -152,7 +152,7 @@
         <record model="ir.actions.act_window" id="pdam_tangerang.action_window_spko">
             <field name="name">Surat Perinta Kerja Opname(SPKO)</field>
             <field name="res_model">pdam_tangerang.spko</field>
-            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_mode">kanban,tree,form</field>
         </record>
         <record model="ir.actions.act_window" id="pdam_tangerang.action_window_wilayah">
             <field name="name">Wilayah SPKO</field>
@@ -162,15 +162,15 @@
          <record model="ir.actions.act_window" id="pdam_tangerang.action_window_survey">
             <field name="name">Survey Pelanggan</field>
             <field name="res_model">pdam_tangerang.survey</field>
-            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_mode">kanban,tree,form</field>
         </record>
 
         <!--UNTUK KANBAN VIEW-->
-        <record model="ir.ui.view" id="view_sale_order_kanban">
+        <record model="ir.ui.view" id="spko_kanban_view">
             <field name="name">spko.kanban</field>
             <field name="model">pdam_tangerang.spko</field>
             <field name="arch" type="xml">
-                <kanban class="oe_background_grey o_kanban_dashboard o_salon_kanban">
+                <kanban default_group_by="wilayah_id" group_create="false" class="oe_background_grey o_kanban_dashboard o_salon_kanban">
                     <field name="wilayah_id"/>
                     <field name="employee_id"/>
                     <field name="customer_id"/>
@@ -217,6 +217,51 @@
                 </kanban>
             </field>
         </record>
+        <!--Kanban View Survey-->
+        <record model="ir.ui.view" id="survey_kanban_view">
+		<field name="name">pdam_tangerang.survey.kanban</field>
+		<field name="model">pdam_tangerang.survey</field>
+		<field name="arch" type="xml">
+			<kanban default_group_by="employee_id" group_create="false" quick_create="true">
+				<field name="color"/>
+                <field name="wilayah_id"/>
+                <field name="employee_id"/>
+                <field name="survey_date"/>
+                <field name="customer_id"/>
+                <field name="registration_number"/>
+				<templates>
+					<t t-name="kanban-box">
+						<div t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}} oe_kanban_global_click_edit oe_semantic_html_override oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+
+							<div class="o_dropdown_kanban dropdown">
+								<!-- MENU DROPDOWN -->
+								<a class="dropdown-toggle btn" data-toggle="dropdown" href="#" >
+                                	<span class="fa fa-bars fa-lg"/>
+                            	</a>
+                            	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									<li>
+										<a type="delete">Hapus</a>
+									</li>
+									<li>
+										<ul class="oe_kanban_colorpicker" data-field="color"/>
+									</li>
+								</ul>
+							</div>
+
+							<div t-attf-class="oe_kanban_content" >
+								<!-- JUDUL -->
+								Wilayah   : <b><i><field name="wilayah_id"/></i></b><br/>
+								Tanggal   : <field name="survey_date"/><br/>
+								Pelanggan : <field name="customer_id"/><br/>
+                                Petugas   : <field name="employee_id"/>
+							</div>
+
+						</div>
+					</t>
+				</templates>
+			</kanban>
+		</field>
+	</record>
 
         <!--UNTUK MENAMBAHKAN CUSTOM FIELD DI MODEL RES.PARTNER (CUSTOMER) ODOO-->
         <record id="form_customer_pdam" model="ir.ui.view">

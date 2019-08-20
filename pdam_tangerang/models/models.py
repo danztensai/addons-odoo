@@ -125,6 +125,7 @@ class Survey(models.Model):
     fee_group = fields.Char(string="Gol. Tarif")
     state = fields.Selection([('survey','Survey'),('verified','Verifikasi'),('denied','Tolak')],'Status Survey',default='survey')
     house_image = fields.Binary(string="Foto Rumah")
+    color = fields.Integer('Warna')
 
     @api.multi
     def action_done(self):
