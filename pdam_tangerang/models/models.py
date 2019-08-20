@@ -41,8 +41,7 @@ class ResPartner(models.Model):
     ktp_image = fields.Binary(string="Upload Foto KTP")
     registration_number = fields.Char(string="No Pendaftaran")
     spl_date = fields.Date(string="Tanggal SPL", required=True,default=fields.Date.today)
-
-
+    status_id = fields.Many2one('pdam_tangerang.status.pelanggan', ondelete='set null', string="Status Pendaftaran Pelanggan", index=True)
 
     @api.multi
     def concept_progressbar(self):
@@ -89,6 +88,13 @@ class ResPartner(models.Model):
         record['registration_number'] =  self.env['ir.sequence'].get('res.partner') or '/'
 
         return record
+
+
+class StatusPelanggan(models.Model):
+    _name='pdam_tangerang.status.pelanggan'
+
+    name = fields.Char(string="Status Pelanggan",required=True)
+    description  = fields.Char(string="Keterangan Status Pelanggan")
 
 class Wilayah(models.Model):
     _name = 'pdam_tangerang.wilayah'

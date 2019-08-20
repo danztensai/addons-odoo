@@ -263,6 +263,18 @@
 		</field>
 	</record>
 
+        <!--Modifikasi Kanban res.partner-->
+        <record id="kanban_customer_pdam" model="ir.ui.view">
+            <field name="name">res.partner.kanban.pdam</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban[1]" position="attributes" >
+                            <attribute name="default_group_by">status_id</attribute>
+		        </xpath>
+            </field>
+        </record>
+
         <!--UNTUK MENAMBAHKAN CUSTOM FIELD DI MODEL RES.PARTNER (CUSTOMER) ODOO-->
         <record id="form_customer_pdam" model="ir.ui.view">
             <field name="name">res.partner.form</field>
@@ -280,13 +292,13 @@
 
                 <xpath expr="//form[1]//sheet[1]" position="before">
                      <header>
-		                <button string="Validating" type="object" name="concept_progressbar" attrs="{'invisible': [('state', '=', 'concept')]}"/>
+		                <!--<button string="Validating" type="object" name="concept_progressbar" attrs="{'invisible': [('state', '=', 'concept')]}"/>-->
 
-                        <button string="Survey" type="object" name="started_progressbar" class="oe_highlight" attrs="{'invisible': [('state','!=','concept')]}"/>
-                        <button string="Tolak" type="object" name="progress_progressbar" attrs="{'invisible': [('state','=','progress')]}"/>
-                        <button string="Approve" type="object" name="done_progressbar" attrs="{'invisible': [('state','=','finished')]}"/>
+                        <!--<button string="Survey" type="object" name="started_progressbar" class="oe_highlight" attrs="{'invisible': [('state','!=','concept')]}"/>-->
+                        <!--<button string="Tolak" type="object" name="progress_progressbar" attrs="{'invisible': [('state','=','progress')]}"/>-->
+                        <!--<button string="Approve" type="object" name="done_progressbar" attrs="{'invisible': [('state','=','finished')]}"/>-->
 
-                            <field name="state" widget="statusbar"/>
+                            <field name="status_id" widget="statusbar"/>
 		            </header>
 		        </xpath>
 
