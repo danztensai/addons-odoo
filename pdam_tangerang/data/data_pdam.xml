@@ -1,0 +1,76 @@
+<odoo>
+    <data>
+        <!--  -->
+        <!--   <record id="object0" model="pdam_tangerang.pdam_tangerang"> -->
+        <!--     <field name="name">Object 0</field> -->
+        <!--     <field name="value">0</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object1" model="pdam_tangerang.pdam_tangerang"> -->
+        <!--     <field name="name">Object 1</field> -->
+        <!--     <field name="value">10</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object2" model="pdam_tangerang.pdam_tangerang"> -->
+        <!--     <field name="name">Object 2</field> -->
+        <!--     <field name="value">20</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object3" model="pdam_tangerang.pdam_tangerang"> -->
+        <!--     <field name="name">Object 3</field> -->
+        <!--     <field name="value">30</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object4" model="pdam_tangerang.pdam_tangerang"> -->
+        <!--     <field name="name">Object 4</field> -->
+        <!--     <field name="value">40</field> -->
+        <!--   </record> -->
+        <!--  -->
+
+    <!--Default Data Untuk  Status Pemasangan -->
+        <record model="pdam_tangerang.status.pemasangan" id="status_1">
+            <field name="name">Standard</field>
+            <field name="description">Untuk Pemasangan Standar</field>
+        </record>
+
+         <record model="pdam_tangerang.status.pemasangan" id="status_1">
+            <field name="name">Standard</field>
+            <field name="description">Untuk Pemasangan Standar</field>
+        </record>
+        <record model="pdam_tangerang.status.pemasangan" id="status_2">
+            <field name="name">Khusus</field>
+            <field name="description">Untuk Pemasangan Khusus</field>
+        </record>
+
+        <!--Default Data Untuk Wilayah-->
+        <record model="pdam_tangerang.wilayah" id="wilayah_1">
+            <field name="name">Wilayah I</field>
+            <field name="description">Untuk Wilayah I</field>
+        </record>
+        <record model="pdam_tangerang.wilayah" id="wilayah_2">
+            <field name="name">Wilayah II</field>
+            <field name="description">Untuk Wilayah II</field>
+        </record>
+        <record model="pdam_tangerang.wilayah" id="wilayah_3">
+            <field name="name">Wilayah III</field>
+            <field name="description">Untuk Wilayah III</field>
+        </record>
+
+        <!-- Default Data Untuk Status Pelanggan-->
+          <record model="pdam_tangerang.status.pelanggan" id="status_pelanggan_1">
+            <field name="name">Survey</field>
+            <field name="description">Survey</field>
+        </record>
+        <record model="pdam_tangerang.status.pelanggan" id="status_pelanggan_2">
+            <field name="name">Validasi</field>
+            <field name="description">Validasi</field>
+        </record>
+        <record model="pdam_tangerang.status.pelanggan" id="status_pelanggan_3">
+            <field name="name">Lama</field>
+            <field name="description">Lama</field>
+        </record>
+
+
+
+    </data>
+</odoo>

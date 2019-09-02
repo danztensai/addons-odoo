@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+# Report untuk generate rekap presensi
+# author @CakJuice <hd.brandoz@gmail.com>
+-->
+
+<odoo>
+    <data>
+
+        <!--Report Untuk SPL-->
+        <report id="pdam_tangerang.spko_report"
+                model="pdam_tangerang.spko"
+                string="Surat Perintah Kerja Opname"
+                report_type="qweb-pdf"
+                name="pdam_tangerang.spko_report_view"
+                file="pdam_tangerang.spko_report_view"
+                menu="True"/>
+
+        <!-- template id dibawah ini harus sama dengan report name -->
+        <template id="spko_report_view">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <h1 style="text-align: center;">Surat Perintah Kerja Lapangan Opname</h1>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <table style="width: 968px;">
+                                <tbody>
+                                    <tr style="height: 13.4688px;">
+                                        <td style="width: 493px; height: 13.4688px;">
+                                            <p>&#160;No Pendaftaran :&#160;<span t-field="o.registration_number"/></p>
+                                            <p>&#160;Kepala&#160; &#160; &#160; &#160; &#160; &#160; &#160;:</p>
+                                        </td>
+                                        <td style="width: 493px; height: 13.4688px;">&#160;Tanggal Cetak : &#160;<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>   </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>Segera dilakukan opname dirumah tersebut dibawah ini, dan selanjutnya harap disampaikan
+                                hasil opname untuk rencana pemasangan sambungan&#160; langganan baru
+                            </p>
+                            <table style="width: 969px;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 491px;">
+                                            <p>&#160;Nama Pemilik :&#160;<span t-field="o.customer_id.name"/> </p>
+                                            <p>&#160;Alamat :&#160;<span t-field="o.customer_id.street"/> </p>
+                                        </td>
+                                        <td style="width: 494px;">Pasang Baru</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

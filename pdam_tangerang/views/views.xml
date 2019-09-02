@@ -14,7 +14,7 @@
           </field>
         </record>
         -->
-        <record model="ir.ui.view" id="pdam_tangerang.spko">
+        <record model="ir.ui.view" id="pdam_tangerang.spko_view_tree">
             <field name="name">Surat Perintah Kerja Opname SPKO</field>
             <field name="model">pdam_tangerang.spko</field>
             <field name="arch" type="xml">
@@ -76,12 +76,13 @@
                 <form string="Survey Form">
                     <header>
 
-                        <button name="action_done" class="oe_highlight" type="object" string="Verifikasi" states="survey"
-                        help="Pastikan Semua data benar Sebelum Melakukan Verifikasi"/>
+                        <button name="action_done" class="oe_highlight" type="object" string="Verifikasi"
+                                states="survey"
+                                confirm="Pastikan Semua data benar Sebelum Melakukan Verifikasi"/>
                         <button name="action_survey" type="object" string="Survey" states="verified"
-                        help="Untuk Mengembalikan Status ke Survey"/>
+                                help="Untuk Mengembalikan Status ke Survey"/>
                         <button name="action_denied" type="object" string="Tolak" states="verified,survey"
-                        help="Untuk Menolak Survey"/>
+                                help="Untuk Menolak Survey"/>
                         <field name="state" widget="statusbar" nolabel="1"/>
 
                     </header>
@@ -108,7 +109,6 @@
                 </form>
             </field>
         </record>
-
 
 
         <!--View Wilayah SPKO-->
@@ -140,37 +140,126 @@
             </field>
         </record>
 
+        <!--View Daftar Kebutuhan Barang (DKB)-->
+        <record model="ir.ui.view" id="pdam_tangerang.dkb">
+            <field name="name">Daftar Kebutuhan Barang (DKB)</field>
+            <field name="model">pdam_tangerang.dkb</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="status_pemasangan_id"/>
+                </tree>
+            </field>
+        </record>
 
+        <record model="ir.ui.view" id="dkb_form_view">
+            <field name="name">dkb.form</field>
+            <field name="model">pdam_tangerang.dkb</field>
+            <field name="arch" type="xml">
+                <form string="Form Daftar Kebutuhan Barang">
+                    <sheet>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="registration_number"/>
+                            <field name="customer_address"/>
+                            <field name="additional_pipe_length"/>
+                            Meter
+                            <field name="status_pemasangan_id"/>
+                        </group>
+                         <field name="barang_id_line" mode="tree">
+                                <form string="List Barang">
+                                    <group>
+
+                                        <field name="barang_id"/>
+                                        <field name="name"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="product_uom"/>
+                                    </group>
+
+                                </form>
+                                <tree string="List Barang" editable="bottom">
+                                     <field name="barang_id" context=""/>
+                                        <field name="name"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="product_uom"/>
+                                </tree>
+
+                            </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--View Status Pelanggan-->
+
+        <record model="ir.ui.view" id="pdam_tangerang.wilayah">
+            <field name="name">Status Pelanggan</field>
+            <field name="model">pdam_tangerang.status.pelanggan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="wilayah_form_view">
+            <field name="name">Status.Pelanggan.form</field>
+            <field name="model">pdam_tangerang.status.pelanggan</field>
+            <field name="arch" type="xml">
+                <form string="Form Status Pelanggan">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
         <!-- actions opening views on models -->
 
 
         <record model="ir.actions.act_window" id="pdam_tangerang.action_window">
             <field name="name">Pelanggan</field>
             <field name="res_model">res.partner</field>
-            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_mode">tree,form,kanban,pivot</field>
         </record>
         <record model="ir.actions.act_window" id="pdam_tangerang.action_window_spko">
             <field name="name">Surat Perinta Kerja Opname(SPKO)</field>
             <field name="res_model">pdam_tangerang.spko</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">kanban,tree,form,pivot</field>
         </record>
         <record model="ir.actions.act_window" id="pdam_tangerang.action_window_wilayah">
             <field name="name">Wilayah SPKO</field>
             <field name="res_model">pdam_tangerang.wilayah</field>
-            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_mode">tree,form,kanban,pivot</field>
         </record>
-         <record model="ir.actions.act_window" id="pdam_tangerang.action_window_survey">
+        <record model="ir.actions.act_window" id="pdam_tangerang.action_window_survey">
             <field name="name">Survey Pelanggan</field>
             <field name="res_model">pdam_tangerang.survey</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">kanban,tree,form,pivot</field>
         </record>
+        <record model="ir.actions.act_window" id="pdam_tangerang.action_window_dkb">
+            <field name="name">Daftar Kebutuhan Barang (DKB)</field>
+            <field name="res_model">pdam_tangerang.dkb</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.actions.act_window" id="pdam_tangerang.action_window_status_pelanggan">
+            <field name="name">Status Pelanggan</field>
+            <field name="res_model">pdam_tangerang.status.pelanggan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
 
         <!--UNTUK KANBAN VIEW-->
         <record model="ir.ui.view" id="spko_kanban_view">
             <field name="name">spko.kanban</field>
             <field name="model">pdam_tangerang.spko</field>
             <field name="arch" type="xml">
-                <kanban default_group_by="wilayah_id" group_create="false" class="oe_background_grey o_kanban_dashboard o_salon_kanban">
+                <kanban default_group_by="wilayah_id" group_create="false"
+                        class="oe_background_grey o_kanban_dashboard o_salon_kanban">
                     <field name="wilayah_id"/>
                     <field name="employee_id"/>
                     <field name="customer_id"/>
@@ -219,49 +308,60 @@
         </record>
         <!--Kanban View Survey-->
         <record model="ir.ui.view" id="survey_kanban_view">
-		<field name="name">pdam_tangerang.survey.kanban</field>
-		<field name="model">pdam_tangerang.survey</field>
-		<field name="arch" type="xml">
-			<kanban default_group_by="employee_id" group_create="false" quick_create="true">
-				<field name="color"/>
-                <field name="wilayah_id"/>
-                <field name="employee_id"/>
-                <field name="survey_date"/>
-                <field name="customer_id"/>
-                <field name="registration_number"/>
-				<templates>
-					<t t-name="kanban-box">
-						<div t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}} oe_kanban_global_click_edit oe_semantic_html_override oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+            <field name="name">pdam_tangerang.survey.kanban</field>
+            <field name="model">pdam_tangerang.survey</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="employee_id" group_create="false" quick_create="true">
+                    <field name="color"/>
+                    <field name="wilayah_id"/>
+                    <field name="employee_id"/>
+                    <field name="survey_date"/>
+                    <field name="customer_id"/>
+                    <field name="registration_number"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}} oe_kanban_global_click_edit oe_semantic_html_override oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
 
-							<div class="o_dropdown_kanban dropdown">
-								<!-- MENU DROPDOWN -->
-								<a class="dropdown-toggle btn" data-toggle="dropdown" href="#" >
-                                	<span class="fa fa-bars fa-lg"/>
-                            	</a>
-                            	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-									<li>
-										<a type="delete">Hapus</a>
-									</li>
-									<li>
-										<ul class="oe_kanban_colorpicker" data-field="color"/>
-									</li>
-								</ul>
-							</div>
+                                <div class="o_dropdown_kanban dropdown">
+                                    <!-- MENU DROPDOWN -->
+                                    <a class="dropdown-toggle btn" data-toggle="dropdown" href="#">
+                                        <span class="fa fa-bars fa-lg"/>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <li>
+                                            <a type="delete">Hapus</a>
+                                        </li>
+                                        <li>
+                                            <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                        </li>
+                                    </ul>
+                                </div>
 
-							<div t-attf-class="oe_kanban_content" >
-								<!-- JUDUL -->
-								Wilayah   : <b><i><field name="wilayah_id"/></i></b><br/>
-								Tanggal   : <field name="survey_date"/><br/>
-								Pelanggan : <field name="customer_id"/><br/>
-                                Petugas   : <field name="employee_id"/>
-							</div>
+                                <div t-attf-class="oe_kanban_content">
+                                    <!-- JUDUL -->
+                                    Wilayah :
+                                    <b>
+                                        <i>
+                                            <field name="wilayah_id"/>
+                                        </i>
+                                    </b>
+                                    <br/>
+                                    Tanggal :
+                                    <field name="survey_date"/>
+                                    <br/>
+                                    Pelanggan :
+                                    <field name="customer_id"/>
+                                    <br/>
+                                    Petugas :
+                                    <field name="employee_id"/>
+                                </div>
 
-						</div>
-					</t>
-				</templates>
-			</kanban>
-		</field>
-	</record>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
 
         <!--Modifikasi Kanban res.partner-->
         <record id="kanban_customer_pdam" model="ir.ui.view">
@@ -269,9 +369,9 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.res_partner_kanban_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//kanban[1]" position="attributes" >
-                            <attribute name="default_group_by">status_id</attribute>
-		        </xpath>
+                <xpath expr="//kanban[1]" position="attributes">
+                    <attribute name="default_group_by">status_id</attribute>
+                </xpath>
             </field>
         </record>
 
@@ -282,26 +382,45 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <field name="category_id" position="after">
+                    <field name="registration"/>
                     <field name="registration_number"/>
                     <field name="ktp_no"/>
                     <field name="npwp_no"/>
                     <field name="spl_date"/>
                     <field name="kk_image" widget="image"/>
-                    <field name="kk_image" widget="image"/>
+                    <field name="ktp_image" widget="image"/>
+                    <!--<field name="status_id"/>-->
+
+                </field>
+
+                <field name="lang" position="after">
+
+                    <field name="penggunaan_air"/>
+                    <field name="luas_bangunan"/>
+                    <field name="status_bangunan"/>
+                    <field name="jumlah_jiwa"/>
+                    <field name="wilayah_pasang"/>
+                    <field name="pipe_tapping_diameter"/>
+                    <field name="status_id"/>
+
+
                 </field>
 
                 <xpath expr="//form[1]//sheet[1]" position="before">
-                     <header>
-		                <!--<button string="Validating" type="object" name="concept_progressbar" attrs="{'invisible': [('state', '=', 'concept')]}"/>-->
-
-                        <!--<button string="Survey" type="object" name="started_progressbar" class="oe_highlight" attrs="{'invisible': [('state','!=','concept')]}"/>-->
-                        <!--<button string="Tolak" type="object" name="progress_progressbar" attrs="{'invisible': [('state','=','progress')]}"/>-->
-                        <!--<button string="Approve" type="object" name="done_progressbar" attrs="{'invisible': [('state','=','finished')]}"/>-->
-
-                            <field name="status_id" widget="statusbar"/>
-		            </header>
-		        </xpath>
-
+                    <header attrs="{'invisible':[('registration','!=',False)]}">
+                        <button string="Survey" type="object" name="action_survey" class="oe_highlight"
+                                attrs="{'invisible': [('state','=','entry')]}"/>
+                        <button string="Validating" type="object" name="action_validasi"/>
+                        <button string="Approve" type="object" name="action_done" class="oe_highlight"
+                                attrs="{'invisible': [('state','=','approved')]}" confirm="Are You Sure?"/>
+                        <button string="Tolak" type="object" name="action_denied"
+                                attrs="{'invisible': [('state','=','validate')]}" class="btn-danger"/>
+                        <button name="%(pdam_tangerang.spl)d" string="Print Form SPL" type="action">
+                            <span class="glyphicon glyphicon-print"></span>
+                        </button>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                </xpath>
 
 
             </field>
@@ -349,8 +468,12 @@
                   action="pdam_tangerang.action_window_spko"/>
         <menuitem name="Survey" id="pdam_tangerang.menu_survey_list" parent="pdam_tangerang.menu_1"
                   action="pdam_tangerang.action_window_survey"/>
+        <menuitem name="Daftar Kebutuhan Barang" id="pdam_tangerang.menu_dkb_list" parent="pdam_tangerang.menu_1"
+                  action="pdam_tangerang.action_window_dkb"/>
         <menuitem name="Wilayah" id="pdam_tangerang.menu_wilayah_list" parent="pdam_tangerang.configuration_menu"
                   action="pdam_tangerang.action_window_wilayah"/>
+        <menuitem name="Status Pelanggan" id="pdam_tangerang.statuspelanggan" parent="pdam_tangerang.configuration_menu"
+                  action="pdam_tangerang.action_window_status_pelanggan"/>
         <!--<menuitem name="Server to list" id="pdam_tangerang" parent="pdam_tangerang.menu_2"-->
         <!--action="pdam_tangerang.action_server"/>-->
 

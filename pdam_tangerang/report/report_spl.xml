@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+# Report untuk generate rekap presensi
+# author @CakJuice <hd.brandoz@gmail.com>
+-->
+
+<odoo>
+    <data>
+
+        <!--Report Untuk SPL-->
+        <report id="pdam_tangerang.spl"
+                model="res.partner"
+                string="Surat Permohonan Langganan"
+                report_type="qweb-pdf"
+                name="pdam_tangerang.spl_view"
+                file="pdam_tangerang.spl_view"
+                menu="True"/>
+
+        <record model="report.paperformat" id="paperformat_pdam_tangerang_report">
+            <field name="name">paperformat.pdam_tanggerang.spl.report</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_width">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_right">5</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- record id dibawah ini harus sama dengan report id -->
+        <record id="pdam_tangerang.spl" model="ir.actions.report.xml">
+            <!-- field ref harus sama dengan id record paperformat -->
+            <field name="paperformat_id" ref="pdam_tangerang.paperformat_pdam_tangerang_report"/>
+        </record>
+
+        <!-- template id dibawah ini harus sama dengan report name -->
+        <template id="spl_view">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+
+                            <!--<p>This object's name is-->
+                            <!--<span t-field="o.name"/>-->
+                            <!--</p>-->
+                            <div class="container">
+                                 <h1 class="text-center">Surat Permohonan Pelanggan</h1>
+                                <div style="padding-top:20mm" class="row">
+                                    <div class="col-xs-6">
+
+                                        <p>No Pendaftaran :
+                                            <span t-field="o.registration_number"/>
+                                        </p>
+                                        <p>Nama Pemohon :
+                                            <span t-field="o.name"/>
+                                        </p>
+                                        <p>Telp Pemohon :
+                                            <span t-field="o.phone"/>
+                                        </p>
+                                        <br/>
+                                        <p>Nama Pemilik :</p>
+                                        <p>Telp Pemilik :</p>
+                                        <p>Penggunaan Air:
+                                            <span t-field="o.penggunaan_air"/>
+                                        </p>
+                                        <p>Status Bangunan:
+                                            <span t-field="o.status_bangunan"/>
+                                        </p>
+                                        <p>Luas Bangunan :
+                                            <span t-field="o.luas_bangunan"/>
+                                        </p>
+                                        <p>Jumlah Jiwa :
+                                            <span t-field="o.jumlah_jiwa"/>
+                                        </p>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <div class="text-center">Penerima</div>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <div class="text-center">---------</div>
+
+
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <p>Tanggal SPL :</p>
+                                        <p>Alamat Pemohon :</p>
+                                        <p>Alamat Pasang :</p>
+                                        <br/>
+                                        <br/>
+                                        <p>Wilayah Pasang :</p>
+                                        <p>No KTP :</p>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <div class="text-center">Tanggerang,......</div>
+                                        <div class="text-center">Penerima</div>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <div class="text-center">---------</div>
+
+                                    </div>
+
+                                </div>
+                                <br/>
+                                <br/>
+                                <p>Denah Lokasi (Dibuat Oleh Calong Pelanggan)</p>
+                                <div style="width: 1000;
+  border: 1px solid green;
+  padding: 150px;
+  margin: 10px;">
+                                </div>
+                                <div style="padding-top=20px;" class="row">
+                                    <div class="col-xs-6">
+                                        <p>Rekomendasi Dari Wilayah :</p>
+                                        <ol>
+                                            <li>Tapping dari Pipa diameter :</li>
+                                            <li>Tekanan Air : Baik / Cukup Baik / Tidak Baik (Coret yang tidak Perlu)
+                                            </li>
+                                            <li>Perlu / Tidak Perlu Tambahan Jaringan Distribusi (Coret yang tidak
+                                                perlu)
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <div class="text-center">
+                                            Kepala..............................
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            .....................................
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
