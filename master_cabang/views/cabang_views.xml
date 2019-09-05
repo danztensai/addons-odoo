@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="cabang_view_form" model="ir.ui.view">
+            <field name="name">cabang.view.tree</field>
+            <field name="model">master.cabang</field>
+            <field name="arch" type="xml">
+                <tree string="Cabang" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="master_cabang_action">
+            <field name="name">Master Cabang</field>
+            <field name="res_model">master.cabang</field>
+            <field name="view_mode">tree</field>
+            <field name="view_type">form</field>
+        </record>
+    </data>
+</odoo>

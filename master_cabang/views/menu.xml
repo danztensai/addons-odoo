@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <menuitem
+            id="menu_master_cabang"
+            parent="hr.menu_human_resources_configuration"
+            action="master_cabang_action"
+            sequence="40"/>
+    </data>
+</odoo>
