@@ -10,7 +10,7 @@ class accounting_cashflow(models.Model):
     #
     # name = fields.Char()
     # value = fields.Integer()
-    cashflow_type = fields.Selection([ ('operations', 'Operations'),('financing', 'Financing'),('investing','Investing')],'Cashflow Type', default='operation')
+    cashflow_type = fields.Selection([ ('operations', 'Operations'),('financing', 'Financing'),('investing','Investing')],'Cashflow Type')
     # value2 = fields.Float(compute="_value_pc", store=True)
     # description = fields.Text()
     #
